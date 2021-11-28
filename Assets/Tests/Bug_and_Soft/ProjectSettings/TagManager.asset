@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Ladder
+  - Platform
+  - Enemy
+  - NPC
+  - Spawner
+  - Togue
+  - Spikes
+  - VergenGhost
+  - VergenHead
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ground
+  - Water
+  - UI
+  - Player
+  - Climbables
+  - Ladders
+  - Dead
+  - Damageable
+  - NPC
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2502320187
+    locked: 0
+  - name: Decoration
+    uniqueID: 1421180149
+    locked: 0
+  - name: Platforms
+    uniqueID: 1574535919
+    locked: 0
+  - name: Usables
+    uniqueID: 1834650217
+    locked: 0
+  - name: NPCandEnemies
+    uniqueID: 2961693717
+    locked: 0
+  - name: InteractionBubbles
+    uniqueID: 3186118869
+    locked: 0
+  - name: Player
+    uniqueID: 3169735723
+    locked: 0
+  - name: Dialogues
+    uniqueID: 1918018393
+    locked: 0

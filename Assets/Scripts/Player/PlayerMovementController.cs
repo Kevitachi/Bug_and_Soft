@@ -143,10 +143,7 @@ namespace Player
         public void Move(float moveH, float moveV, bool crouch, bool jump, bool roll, bool attacking)
         {
             if (!GameManager.Instance.GetIsInputEnabled())
-            {
-                Debug.Log("Input is not enabled");
                 return;
-            }
 
             if (CanClimbLedge)
             {

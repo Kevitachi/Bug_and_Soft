@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cutscenes/CutScene1.unity
     guid: 861955480dc63784bb3236d24971f8f1
+  - enabled: 1
+    path: Assets/Scenes/Main/TestingHall.unity
+    guid: c0910cc3cb4917347a9762a1810d8c75
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: e94a9bb7654be5b46972217e8b38bbab, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: e3954c3f66b664d4faa6f5f6f97de15e, type: 2}

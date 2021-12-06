@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent OnVergenTrappedPlayer { get; private set; }
 
     public List<PlayerPowerUp> UnlockedPowerUps { get; private set; }
+    public bool IsTestingMode { get; set; }
 
     public void Awake()
     {
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
         isGamePaused = true;
         PauseGame();
 
-        Instance.GetUIManager().ShowMainMenu();
+        Instance.GetUIManager()?.ShowMainMenu();
 
         DontDestroyOnLoad(transform.root.gameObject);
     }
@@ -338,27 +339,27 @@ public class GameManager : MonoBehaviour
 
     public UI_HUD GetHUD()
     {
-        return GameObject.Find("UI/UI_HUD").GetComponent<UI_HUD>();
+        return GameObject.Find("UI/UI_HUD")?.GetComponent<UI_HUD>();
     }
 
     public InventorySlotManager GetInventorySlotManager()
     {
-        return GameObject.Find("Managers/InvetoryManager").GetComponent<InventorySlotManager>();
+        return GameObject.Find("Managers/InvetoryManager")?.GetComponent<InventorySlotManager>();
     }
 
     public UIManager GetUIManager()
     {
-        return GameObject.Find("/UIManager").GetComponent<UIManager>();
+        return GameObject.Find("/UIManager")?.GetComponent<UIManager>();
     }
 
     public SoundManager GetSoundManager()
     {
-        return GameObject.Find("/SoundManager").GetComponent<SoundManager>();
+        return GameObject.Find("/SoundManager")?.GetComponent<SoundManager>();
     }
 
     public static Canvas GetHUDCanvas()
     {
-        return GameObject.Find("UI/UI_HUD").GetComponent<Canvas>();
+        return GameObject.Find("UI/UI_HUD")?.GetComponent<Canvas>();
     }
 
     public void LevelWon()

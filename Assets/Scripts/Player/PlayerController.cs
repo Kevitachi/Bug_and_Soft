@@ -44,7 +44,7 @@ namespace Player
         private Vector2 lastVelocity;
         internal bool moveOnDamaged;
         private float moveOnDamagedStartTime;
-        private PlayerMovementController playerMovementCtrl;
+        public PlayerMovementController playerMovementCtrl { get; private set; }
         internal bool praying = true;
         internal bool respawning;
         private Rigidbody2D rigidbody2D;
@@ -162,9 +162,13 @@ namespace Player
             var SpawnPoint = GameObject.Find("SpawnPoints/LevelOneDefaultSpawn");
             rigidbody2D = GetComponent<Rigidbody2D>();
             effectController = GetComponent<EffectController>();
-            transform.position = SpawnPoint.transform.position;
-            respawning = true;
-            AnimStartPrayingEvt();
+            
+            if (!GameManager.Instance.IsTestingMode)
+            {
+                transform.position = SpawnPoint.transform.position;
+                respawning = true;
+                AnimStartPrayingEvt();
+            }
 
             currentHealth = maxHealth;
 

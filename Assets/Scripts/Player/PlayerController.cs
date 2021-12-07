@@ -38,7 +38,7 @@ namespace Player
 
         public int maxHealth = 150; // health por defecto
 
-        private float horizontalMove;
+        public float horizontalMove;
         private bool jump;
         private float lastAngularVelocity;
         private Vector2 lastVelocity;
@@ -115,6 +115,14 @@ namespace Player
 
         public void Damage(DamageInfo damageInfo)
         {
+            if (GameManager.Instance.IsTestingMode)
+            {                
+                currentHealth -= damageInfo.DamageAmount;
+                onPlayerHurtSFX.Play();
+                StartCoroutine(DamageEffect());
+                return;
+            }
+            
             if (!rollAnim)
             {
                 if (!damageInfo.isLava && shieldPowerUp.IsActive() && powerUps.currentPowerUp == shieldPowerUp)
@@ -254,7 +262,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (GameManager.Instance.IsGamePaused() || isEnrolledInDialogue || moveOnDamaged) return;
+            if (GameManager.Instance.IsGamePaused() || GameManager.Instance.IsTestingMode || isEnrolledInDialogue || moveOnDamaged) return;
 
             playerMovementCtrl.Move(
                 horizontalMove * GameManager.Instance.DeltaTime, //Time.fixedDeltaTime,

@@ -142,6 +142,22 @@ namespace Player
 
         public void Move(float moveH, float moveV, bool crouch, bool jump, bool roll, bool attacking)
         {
+            if (GameManager.Instance.IsTestingMode)
+            {
+                if (!jump)
+                {
+                    Vector3 targetVelocity = new Vector2(moveH * 10f, Rigidbody2D.velocity.y);
+                    Rigidbody2D.velocity =
+                        Vector3.SmoothDamp(Rigidbody2D.velocity, targetVelocity, ref Velocity, MovementSmoothing);
+                }
+                else
+                {
+                    Rigidbody2D.AddForce(new Vector2(250f, JumpForce));
+                }
+
+                return;
+            }
+            
             if (!GameManager.Instance.GetIsInputEnabled())
                 return;
 

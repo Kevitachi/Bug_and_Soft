@@ -334,6 +334,7 @@ public class GameManager : MonoBehaviour
 
     public DynamicCamera GetDynamicCamera()
     {
+        if (IsTestingMode) return null;
         return Camera.main.GetComponent<DynamicCamera>();
     }
 

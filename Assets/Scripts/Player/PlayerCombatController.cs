@@ -36,19 +36,17 @@ namespace Player
         private Color[] gizmosColors;
         private float lastInputTime = float.NegativeInfinity;
 
-        private Animator pAnimator;
+        public Animator pAnimator;
 
         private PlayerController pCtrl;
         private PlayerLadderClimbingController pLadderCtrl;
 
-        private PlayerMovementController pMovCtrl;
+        public PlayerMovementController pMovCtrl;
 
         private void Start()
         {
             pCtrl = GetComponent<PlayerController>();
-            pMovCtrl = GetComponent<PlayerMovementController>();
             pLadderCtrl = GetComponent<PlayerLadderClimbingController>();
-            pAnimator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -172,7 +170,7 @@ namespace Player
             attacksDamage[0] = attacksDamage[0] + (int)(0.10f * attacksDamage[0]);
             attacksDamage[1] = attacksDamage[1] + (int)(0.10f * attacksDamage[1]);
         }
-        
+
         public int GetDamagePromedio()
         {
             return ((attacksDamage[0] + attacksDamage[0]) / 2);
@@ -180,11 +178,36 @@ namespace Player
 
         public void AttackPerformed()
         {
+            if (GameManager.Instance.IsTestingMode)
+            {
+                StopAllCoroutines();
+
+                attacking = true;
+                attackN++;
+                awaitingAttack = false;
+
+                damagedApplied = false;
+
+                playerMaterial.SetFloat("EmmisiveIntensity", 0.25f);
+
+                pAnimator.SetBool("AwaitingAttack", false);
+                pAnimator.SetBool("Attacking", true);
+                pAnimator.SetInteger("AttackN", attackN);
+
+                pMovCtrl.AttackMovement(attackN * 2);
+
+                lastInputTime = Time.time + generalInputCooldown;
+                
+                return;
+            }
+            
             if (GameManager.Instance.IsGamePaused() || !GameManager.Instance.GetIsInputEnabled()) return;
 
-            if (!pCtrl.respawning && !pCtrl.isEnrolledInDialogue && !pCtrl.praying && !pCtrl.roll &&
-                !pMovCtrl.IsTouchingLedge)
+            if ((!pCtrl.respawning && !pCtrl.isEnrolledInDialogue && !pCtrl.praying && !pCtrl.roll &&
+                !pMovCtrl.IsTouchingLedge))
+            {
                 if (pLadderCtrl != null && !pLadderCtrl.isClimbing)
+                {
                     if (awaitingAttack && Time.time >= lastInputTime)
                     {
                         StopAllCoroutines();
@@ -205,6 +228,8 @@ namespace Player
 
                         lastInputTime = Time.time + generalInputCooldown;
                     }
+                }
+            }
         }
     }
 }

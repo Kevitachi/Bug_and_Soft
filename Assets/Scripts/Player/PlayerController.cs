@@ -17,7 +17,7 @@ namespace Player
         /// @endcond
         IDamageable
     {
-        [SerializeField] private Animator characterAnimator;
+        public Animator characterAnimator;
 
         public PlayerCombatController combatCtrl { get; private set; }
         [SerializeField] private AudioSource footStep1;

@@ -10,35 +10,25 @@ using UnityEngine.TestTools;
 
 public class PlayMode
 {
-    private bool sceneLoaded;
-    private Scene testingHall;
+    private bool cargado;
 
     [UnityTest]
-    public IEnumerator Inicializar()
+    public IEnumerator Cargar()
     {
         SceneManager.LoadSceneAsync("TestingHall", LoadSceneMode.Single);
         SceneManager.sceneLoaded += (s, m) =>
         {
-            testingHall = s;
-            sceneLoaded = true;
+            cargado = true;
         };
         
-        yield return new WaitUntil(()=> sceneLoaded);
-        
-        // Test : Esta presente en la escena el GameManager (?)
-        var gameManager = GameObject.Find("GameManager");
-        Assert.NotNull(gameManager);
-        
+        yield return new WaitUntil(()=> cargado);
+
         // Para que el juego inicie 'limpio' xd
         GameManager.Instance.IsTestingMode = true;
         GameManager.Instance.isGamePaused = false;
         GameManager.Instance.isMainMenuOn = false;
 
         SpawnearJugador();
-
-        // Test : Spawnio bien el jugador (?)
-        var playerController = GameObject.FindObjectOfType<PlayerController>();
-        Assert.IsNotNull(playerController);
     }
     
     [UnityTest]
@@ -46,8 +36,8 @@ public class PlayMode
     {
         yield return new WaitForSeconds(2);
         
-        if (!sceneLoaded)
-            yield return Inicializar();
+        if (!cargado)
+            yield return Cargar();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -67,7 +57,7 @@ public class PlayMode
         Assert.Greater(rBody.velocity.x, 0);
 
         yield return new WaitForSeconds(1);
-        rBody.velocity = new Vector2(0, 0);
+        rBody.velocity = Vector2.zero;
 
         yield return null;
     }
@@ -77,8 +67,8 @@ public class PlayMode
     {
         yield return new WaitForSeconds(2);
         
-        if (!sceneLoaded)
-            yield return Inicializar();
+        if (!cargado)
+            yield return Cargar();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -93,7 +83,7 @@ public class PlayMode
         playerController.playerMovementCtrl.Move(0, 0, false, true, false, false);
         yield return new WaitForSeconds(0.15f);
         Assert.Greater(rBody.velocity.y, 0);
-        playerController.playerMovementCtrl.Move(0, 0, false, true, false, false);
+        rBody.velocity = Vector2.zero;
         
         yield return null;
     }
@@ -103,8 +93,8 @@ public class PlayMode
     {
         yield return new WaitForSeconds(2);
         
-        if (!sceneLoaded)
-            yield return Inicializar();
+        if (!cargado)
+            yield return Cargar();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -116,6 +106,33 @@ public class PlayMode
         playerController.Damage(new DamageInfo(20, 0));
 
         Assert.AreEqual(currentHealth - 20, playerController.currentHealth);
+        
+        playerController.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        yield return null;
+    }
+    
+    [UnityTest]
+    public IEnumerator PruebaAnimacion()
+    {
+        yield return new WaitForSeconds(2);
+        
+        if (!cargado)
+            yield return Cargar();
+        
+        GameManager.Instance.SetInputEnabled(true);
+        
+        // Test : Spawnio bien el jugador o no (?)
+        var playerController = GameObject.FindObjectOfType<PlayerController>();
+        Assert.IsNotNull(playerController);
+
+        playerController.combatCtrl.AttackPerformed();
+
+        yield return new WaitForEndOfFrame();
+        
+        Assert.IsTrue(playerController.characterAnimator.GetBool("Attacking"));
+        
+        playerController.transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
         yield return null;
     }

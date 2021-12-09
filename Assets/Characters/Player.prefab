@@ -353,6 +353,7 @@ MonoBehaviour:
   pepeTarget: {fileID: 679719043292999501}
   VergenTrapTarget: {fileID: 6674731064216433947}
   maxHealth: 150
+  horizontalMove: 0
   interactionRadius: 3
   isEnrolledInDialogue: 0
 --- !u!114 &1627404402562284199
@@ -453,7 +454,7 @@ MonoBehaviour:
   - 2.71
   - 2.87
   generalInputCooldown: 0.25
-  playerMaterial: {fileID: 0}
+  playerMaterial: {fileID: 2100000, guid: ce78f68399e92cf4d841f0d848277a59, type: 2}
   swordSwingSFX:
   - {fileID: 7483959277019260712}
   - {fileID: 1933699133503109566}
@@ -462,6 +463,8 @@ MonoBehaviour:
   whatCanBeDamaged:
     serializedVersion: 2
     m_Bits: 512
+  pAnimator: {fileID: 5223729173480044969}
+  pMovCtrl: {fileID: 1627404402562284199}
 --- !u!212 &2763728245634197116
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class PlayMode
     private bool cargado;
 
     [UnityTest]
-    public IEnumerator Cargar()
+    public IEnumerator Spawn()
     {
         SceneManager.LoadSceneAsync("TestingHall", LoadSceneMode.Single);
         SceneManager.sceneLoaded += (s, m) =>
@@ -29,6 +29,12 @@ public class PlayMode
         GameManager.Instance.isMainMenuOn = false;
 
         SpawnearJugador();
+        
+        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
+        
+        Assert.NotNull(player);
+
+        yield return null;
     }
     
     [UnityTest]
@@ -37,7 +43,7 @@ public class PlayMode
         yield return new WaitForSeconds(2);
         
         if (!cargado)
-            yield return Cargar();
+            yield return Spawn();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -68,7 +74,7 @@ public class PlayMode
         yield return new WaitForSeconds(2);
         
         if (!cargado)
-            yield return Cargar();
+            yield return Spawn();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -94,7 +100,7 @@ public class PlayMode
         yield return new WaitForSeconds(2);
         
         if (!cargado)
-            yield return Cargar();
+            yield return Spawn();
         
         GameManager.Instance.SetInputEnabled(true);
         
@@ -118,7 +124,7 @@ public class PlayMode
         yield return new WaitForSeconds(2);
         
         if (!cargado)
-            yield return Cargar();
+            yield return Spawn();
         
         GameManager.Instance.SetInputEnabled(true);
         

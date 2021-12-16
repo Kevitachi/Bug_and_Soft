@@ -3,11 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-/// <summary>
-/// Author: Nicolas Cabrera Lettiere
-/// Github: https://github.com/nclettiere
-/// </summary>
-class Builder
+class Builds
 {
     private static string PathCombine(string path1, string path2)
     {
@@ -19,12 +15,8 @@ class Builder
 
         return Path.Combine(path1, path2);
     }
-    private static string PathDeploy =>
-        PathCombine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "/PacoBuilds/Win64/PacoGame.exe");
 
     static void build() {
-        Debug.Log($"Build de Paco se generara en: {PathDeploy}");
-        
         string[] scenes = {
             "Assets/Scenes/Main/Level1.unity",
             "Assets/Scenes/Main/Level2.unity",
@@ -34,9 +26,11 @@ class Builder
             "Assets/Scenes/Creditos/Creditos.unity",
             "Assets/Scenes/Cutscenes/CutScene1.unity"
         };
+		
+		string ejecutable = Application.dataPath;
+        ejecutable = ejecutable.Replace("/Assets", "");
+		ejecutable = PathCombine(ejecutable, "/Build/Paco.exe");
 
-        //string pathToDeploy = @"C:\Users\Nicolini\Documents\builds\Win64\PacoGame.exe";       
-
-        BuildPipeline.BuildPlayer(scenes, PathDeploy, BuildTarget.StandaloneWindows64, BuildOptions.None);      
+        BuildPipeline.BuildPlayer(scenes, ejecutable, BuildTarget.StandaloneWindows64, BuildOptions.None);      
     }
 }

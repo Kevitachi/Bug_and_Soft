@@ -1,0 +1,19 @@
+name: Build
+on: push
+jobs:
+  build:
+    name: buildear automaticamente
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Buildeando
+        shell: pwsh
+        run: |
+          .\Buildear.ps1
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: resultado
+          path: paco_an_adventure_begins.zip

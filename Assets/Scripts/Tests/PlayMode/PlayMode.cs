@@ -23,7 +23,6 @@ public class PlayMode
         
         yield return new WaitUntil(()=> cargado);
 
-        // Para que el juego inicie 'limpio' xd
         GameManager.Instance.IsTestingMode = true;
         GameManager.Instance.isGamePaused = false;
         GameManager.Instance.isMainMenuOn = false;
@@ -47,15 +46,12 @@ public class PlayMode
         
         GameManager.Instance.SetInputEnabled(true);
         
-        // Test : Spawnio bien el jugador o no (?)
         var playerController = GameObject.FindObjectOfType<PlayerController>();
         Assert.IsNotNull(playerController);
         
-        // Test : Contiene el objeto 'Player' el script RigidBody2D (?)
         var rBody = playerController.transform.GetComponent<Rigidbody2D>();
         Assert.IsNotNull(rBody);
 
-        //yield return MoverJugador(playerController);
         playerController.playerMovementCtrl.Move(10, 0, false, false, false, false);
         
         yield return new WaitForEndOfFrame();
@@ -78,11 +74,9 @@ public class PlayMode
         
         GameManager.Instance.SetInputEnabled(true);
         
-        // Test : Spawnio bien el jugador o no (?)
         var playerController = GameObject.FindObjectOfType<PlayerController>();
         Assert.IsNotNull(playerController);
         
-        // Test : Contiene el objeto 'Player' el script RigidBody2D (?)
         var rBody = playerController.transform.GetComponent<Rigidbody2D>();
         Assert.IsNotNull(rBody);
 
@@ -104,7 +98,6 @@ public class PlayMode
         
         GameManager.Instance.SetInputEnabled(true);
         
-        // Test : Spawnio bien el jugador o no (?)
         var playerController = GameObject.FindObjectOfType<PlayerController>();
         Assert.IsNotNull(playerController);
 
@@ -128,7 +121,6 @@ public class PlayMode
         
         GameManager.Instance.SetInputEnabled(true);
         
-        // Test : Spawnio bien el jugador o no (?)
         var playerController = GameObject.FindObjectOfType<PlayerController>();
         Assert.IsNotNull(playerController);
 
